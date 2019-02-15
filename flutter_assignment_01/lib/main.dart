@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ui/login.dart';
 import 'ui/inApp.dart';
+import 'ui/signUp.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) =>Login(),
         "/second": (context) =>(InApp()),
+        "/third": (context) =>(SignUp()),
+
         },
     );
   }
