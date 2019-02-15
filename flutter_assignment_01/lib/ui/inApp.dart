@@ -10,6 +10,7 @@ class InApp extends StatefulWidget {
 
 class MyInApp extends State<InApp> {
   int _currentIndex = 0;
+  List name = ["Home", "Notify","Map","Profile","Setup"];
   final List<Widget> _children = [
     Container(
       child: Center(
@@ -59,6 +60,7 @@ class MyInApp extends State<InApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(name[_currentIndex],style: TextStyle(color: Colors.white),),centerTitle: true,),
       body: _children[_currentIndex],
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
@@ -71,23 +73,23 @@ class MyInApp extends State<InApp> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.widgets),
-              title: Text('Home'),
+              title: Text(name[_currentIndex]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notification_important),
-              title: Text('Notify'),
+              title: Text(name[_currentIndex]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.map),
-              title: Text('Map'),
+              title: Text(name[_currentIndex]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_box),
-              title: Text('Profile'),
+              title: Text(name[_currentIndex]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              title: Text('Setup'),
+              title: Text(name[_currentIndex]),
             )
           ],
         ),

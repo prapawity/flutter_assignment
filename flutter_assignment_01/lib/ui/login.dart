@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'inApp.dart';
 import 'userpass.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +10,8 @@ class Login extends StatefulWidget {
 }
 
 class MyLogin extends State<Login> {
+  final TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller2 = new TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool state = false;
   String user, pass;
@@ -18,7 +19,7 @@ class MyLogin extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,       
+      key: _scaffoldKey,
       appBar: AppBar(),
       body: new Builder(
         builder: (BuildContext) {
@@ -34,6 +35,7 @@ class MyLogin extends State<Login> {
                   ),
                   Padding(padding: EdgeInsets.fromLTRB(0, 15, 0, 10)),
                   TextFormField(
+                    controller: _controller,
                     decoration: InputDecoration(
                         labelText: "USER-ID",
                         hintText: "Please Input Your USER-ID",
@@ -54,6 +56,7 @@ class MyLogin extends State<Login> {
                   ),
                   Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
                   TextFormField(
+                    controller: _controller2,
                     decoration: InputDecoration(
                         labelText: "PASSWORD",
                         hintText: "Please Input Your PASSWORD",
@@ -74,31 +77,40 @@ class MyLogin extends State<Login> {
                   RaisedButton(
                     child: Text("LOGIN"),
                     onPressed: () {
+                      bool chk = false;
                       _formKey.currentState.validate();
-                      if (user == UserPass.idPass[0][0] &&
-                          pass == UserPass.idPass[0][1]) {
-                        Navigator.pushReplacementNamed(context, "/second");
-                      } else {
+                      for (var item in UserPass.idPass) {
+                        if (user == item[0] && pass == item[1]) {
+                          Navigator.pushReplacementNamed(context, "/second");
+                          chk = true;
+                        }
+                      }
+                      if (chk == false) {
                         _displaySnackBar(context);
                       }
+                      _controller.clear();
+                      _controller2.clear();
                     },
                     color: Colors.orange,
                     splashColor: Colors.blueGrey,
                     textColor: Colors.white,
                   ),
-                  FlatButton(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Text("Register New Account",
-                          textAlign: TextAlign.right),
-                    ),
-                    onPressed: () {
-                      state = true;
-                      Navigator.pushNamed(context, "/third");
-                    },
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      FlatButton(
+                        child: SizedBox(
+                          child: Text("Register New Account",
+                              textAlign: TextAlign.right),
+                        ),
+                        onPressed: () {
+                          state = true;
+                          Navigator.pushNamed(context, "/third");
+                          _controller.clear();
+                          _controller2.clear();
+                        },
+                      )
+                    ],
                   )
                 ],
               ),
@@ -108,9 +120,9 @@ class MyLogin extends State<Login> {
       ),
     );
   }
-  _displaySnackBar(BuildContext context) {
-  final snackBar = SnackBar(content: Text('USER or PASSWORD is Incorrect'));
-  _scaffoldKey.currentState.showSnackBar(snackBar);
-}
 
+  _displaySnackBar(BuildContext context) {
+    final snackBar = SnackBar(content: Text('USER or PASSWORD is Incorrect'));
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 }
