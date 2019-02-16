@@ -13,7 +13,7 @@ class MyLogin extends State<Login> {
   final TextEditingController _controller = new TextEditingController();
   final TextEditingController _controller2 = new TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool state = false;
+  bool state = false,chk2 =false;
   String user, pass;
   final _formKey = GlobalKey<FormState>();
   @override
@@ -48,6 +48,7 @@ class MyLogin extends State<Login> {
                     onSaved: (id) => print(id),
                     validator: (id) {
                       if (id.isEmpty) {
+                        chk2 = true;
                         return "Please Input Your USER-ID";
                       } else {
                         user = id;
@@ -67,6 +68,7 @@ class MyLogin extends State<Login> {
                     onSaved: (password) => print(password),
                     validator: (password) {
                       if (password.isEmpty) {
+                        chk2 = true;
                         return "Please Input Your PASSWORD";
                       } else {
                         pass = password;
@@ -85,11 +87,12 @@ class MyLogin extends State<Login> {
                           chk = true;
                         }
                       }
-                      if (chk == false) {
+                      if (chk == false && chk2 == false) {
                         _displaySnackBar(context);
                       }
                       _controller.clear();
                       _controller2.clear();
+                      chk2 = false;
                     },
                     color: Colors.orange,
                     splashColor: Colors.blueGrey,
