@@ -87,7 +87,7 @@ class MyLogin extends State<Login> {
                           chk = true;
                         }
                       }
-                      if (chk == false && chk2 == false) {
+                      if (chk == false) {
                         _displaySnackBar(context);
                       }
                       _controller.clear();
